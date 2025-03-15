@@ -2,33 +2,37 @@ import { use } from "react"
 import { Appbar } from "../components/Appbar"
 import { BlogCard } from "../components/BlogCard"
 import { useBlogs } from "../hooks"
+import { BlogSkeleton } from "../components/BlogSkeleton"
 
 export const Blogs = () => {
     const {loading, blogs} = useBlogs();
     if(loading){
+        
         return<div>
-            loading...
+            <Appbar />
+            <div className="flex justify-center">
+            <div><BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            <BlogSkeleton />
+            </div>
+        </div>
         </div>
     }
     return <div >
         <Appbar />
         <div className="flex justify-center">
-        <div className="max-w-lx">
-            <BlogCard 
-                authorName={"astick"}
-                title={"song of winds is  a got book which was supposed to release"}
-                content={"content of blog is trash for anyone to read now it not gonna releaase ever so we are as good as not knowing about it , and i told you that you will not gain any knowledge by reading this blog but still here you are grimming and not want to move forward from thrash."}
+        <div className="">
+            {blogs.map(blog => <BlogCard 
+                id={blog.id}
+                authorName={blog.author.name || "Anonymous"}
+                title={blog.title}
+                content={blog.content}
                 publishedDate={"2nd feb"} />
-            <BlogCard 
-                authorName={"astick"}
-                title={"song of winds is  a got book which was supposed to release"}
-                content={"content of blog is trash for anyone to read now it not gonna releaase ever so we are as good as not knowing about it , and i told you that you will not gain any knowledge by reading this blog but still here you are grimming and not want to move forward from thrash."}
-                publishedDate={"2nd feb"} />
-            <BlogCard 
-                authorName={"astick"}
-                title={"song of winds is  a got book which was supposed to release"}
-                content={"content of blog is trash for anyone to read now it not gonna releaase ever so we are as good as not knowing about it , and i told you that you will not gain any knowledge by reading this blog but still here you are grimming and not want to move forward from thrash."}
-                publishedDate={"2nd feb"} />
+            )}
+            
         </div>
         </div>
     </div>
